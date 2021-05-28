@@ -107,16 +107,9 @@ export default class App extends React.Component {
     }
   }
 
-  restartGameBtn() {
-    this.setState({
-      gameState: [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0],
-      ],
-      currentPlayer: 1,
-    });
-  }
+  restartGameBtn = () => {
+    this.initializeGame();
+  };
 
   renderIcon(row, col) {
     const value = this.state.gameState[row][col];

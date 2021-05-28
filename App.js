@@ -1,7 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { render } from "react-dom";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  Button,
+} from "react-native";
 import { MaterialCommunityIcons as Icon } from "react-native-vector-icons";
 
 export default class App extends React.Component {
@@ -29,15 +36,44 @@ export default class App extends React.Component {
         [0, 0, 0],
         [0, 0, 0],
       ],
+      currentPlayer: 1,
     });
   }
 
   checkForWinner() {
-    // return 1 if Player 1 won, -1 if player 2 won, or 0 if no one has won.
+    // returns 1 if X wins, -1 if O wins, or 0 if no one wins
 
     let sum;
     const numberOfTiles = 3;
     const board = this.state.gameState;
+
+    // check for rows
+    for (let i = 0; i < numberOfTiles; i++) {
+      sum = board[i][0] + board[i][1] + board[i][2];
+      if (sum == 3) return 1;
+      if (sum == -3) return -1;
+    }
+
+    // check for columns
+    for (let i = 0; i < numberOfTiles; i++) {
+      sum = board[0][i] + board[1][i] + board[2][i];
+      if (sum == 3) return 1;
+      if (sum == -3) return -1;
+    }
+
+    // check for diagonals
+    // left -> right
+    sum = board[0][0] + board[1][1] + board[2][2];
+    if (sum == 3) return 1;
+    if (sum == -3) return -1;
+
+    // right -> left
+    sum = board[0][2] + board[1][1] + board[2][0];
+    if (sum == 3) return 1;
+    if (sum == -3) return -1;
+
+    // if there is No winner
+    return 0;
   }
 
   onTilePress(row, col) {
@@ -58,6 +94,28 @@ export default class App extends React.Component {
     // switching the players
     let nextPlayer = currentPlayer == 1 ? -1 : 1;
     this.setState({ currentPlayer: nextPlayer });
+
+    // check for a winner
+    const winner = this.checkForWinner();
+    if (winner == 1) {
+      Alert.alert("X wins!");
+      this.initializeGame();
+    }
+    if (winner == -1) {
+      Alert.alert("O wins!");
+      this.initializeGame();
+    }
+  }
+
+  restartGameBtn() {
+    this.setState({
+      gameState: [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+      ],
+      currentPlayer: 1,
+    });
   }
 
   renderIcon(row, col) {
@@ -138,6 +196,7 @@ export default class App extends React.Component {
             {this.renderIcon(2, 2)}
           </TouchableOpacity>
         </View>
+        <Button title="New Game" onPress={this.restartGameBtn} />
       </View>
     );
   }

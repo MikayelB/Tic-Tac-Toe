@@ -188,6 +188,8 @@ export default class App extends React.Component {
           >
             {this.renderIcon(2, 2)}
           </TouchableOpacity>
+
+          <View style={{ marginTop: "50%" }}></View>
         </View>
         <Button title="New Game" onPress={this.restartGameBtn} />
       </View>

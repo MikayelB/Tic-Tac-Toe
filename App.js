@@ -11,6 +11,10 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons as Icon } from "react-native-vector-icons";
 
+let winnerValue;
+let board;
+let status = "X's turn";
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +26,7 @@ export default class App extends React.Component {
         [0, 0, 0],
       ],
       currentPlayer: 1,
+      winnerValue: 0,
     };
   }
 
@@ -37,7 +42,11 @@ export default class App extends React.Component {
         [0, 0, 0],
       ],
       currentPlayer: 1,
+      winnerValue: 0,
     });
+
+    // status = "X's turn";
+    // status = this.renderStatus(winnerValue, this.state.currentPlayer);
   }
 
   checkForWinner() {
@@ -45,7 +54,7 @@ export default class App extends React.Component {
 
     let sum;
     const numberOfTiles = 3;
-    const board = this.state.gameState;
+    board = this.state.gameState;
 
     // check for rows
     for (let i = 0; i < numberOfTiles; i++) {
@@ -98,13 +107,24 @@ export default class App extends React.Component {
     // check for a winner
     const winner = this.checkForWinner();
     if (winner == 1) {
+      Alert.alert(winner + " is winner");
+      winnerValue = "X";
+
       Alert.alert("X wins!");
       this.initializeGame();
     }
     if (winner == -1) {
+      Alert.alert(winner + " is winner");
+      winnerValue = "O";
+
       Alert.alert("O wins!");
       this.initializeGame();
     }
+
+    console.log(this.renderStatus(winnerValue, currentPlayer));
+    status = this.renderStatus(winnerValue, currentPlayer);
+    // return this.renderStatus(winnerValue, currentPlayer);
+    console.log(board);
   }
 
   restartGameBtn = () => {
@@ -122,6 +142,12 @@ export default class App extends React.Component {
       default:
         return <View />;
     }
+  }
+
+  renderStatus(winnerValue, currentPlayer) {
+    if (winnerValue == "X") return "Winner: X";
+    if (winnerValue == "O") return "Winner: O";
+    else return `${currentPlayer == 1 ? "O" : "X"}'s turn`;
   }
 
   render() {
@@ -147,7 +173,6 @@ export default class App extends React.Component {
             {this.renderIcon(0, 2)}
           </TouchableOpacity>
         </View>
-
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             onPress={() => this.onTilePress(1, 0)}
@@ -168,7 +193,6 @@ export default class App extends React.Component {
             {this.renderIcon(1, 2)}
           </TouchableOpacity>
         </View>
-
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             onPress={() => this.onTilePress(2, 0)}
@@ -188,8 +212,11 @@ export default class App extends React.Component {
           >
             {this.renderIcon(2, 2)}
           </TouchableOpacity>
-
           <View style={{ marginTop: "50%" }}></View>
+        </View>
+        <View>
+          {/* <Text>{this.renderStatus(winnerValue, this.currentPlayer)}</Text> */}
+          <Text>{status}</Text>
         </View>
         <Button title="New Game" onPress={this.restartGameBtn} />
       </View>

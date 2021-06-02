@@ -11,9 +11,9 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons as Icon } from "react-native-vector-icons";
 
-let winnerValue;
+let winnerValue = 0;
 let board;
-let status = "X's turn";
+let statusTemp = "X's turn";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -35,6 +35,7 @@ export default class App extends React.Component {
   }
 
   initializeGame() {
+    statusTemp = "X's turn";
     this.setState({
       gameState: [
         [0, 0, 0],
@@ -43,10 +44,8 @@ export default class App extends React.Component {
       ],
       currentPlayer: 1,
       winnerValue: 0,
+      status: statusTemp,
     });
-
-    // status = "X's turn";
-    // status = this.renderStatus(winnerValue, this.state.currentPlayer);
   }
 
   checkForWinner() {
@@ -82,6 +81,7 @@ export default class App extends React.Component {
     if (sum == -3) return -1;
 
     // if there is No winner
+    winnerValue = 0;
     return 0;
   }
 
@@ -121,10 +121,7 @@ export default class App extends React.Component {
       this.initializeGame();
     }
 
-    console.log(this.renderStatus(winnerValue, currentPlayer));
-    status = this.renderStatus(winnerValue, currentPlayer);
-    // return this.renderStatus(winnerValue, currentPlayer);
-    console.log(board);
+    this.renderStatus(winnerValue, currentPlayer);
   }
 
   restartGameBtn = () => {
@@ -144,10 +141,16 @@ export default class App extends React.Component {
     }
   }
 
-  renderStatus(winnerValue, currentPlayer) {
-    if (winnerValue == "X") return "Winner: X";
-    if (winnerValue == "O") return "Winner: O";
-    else return `${currentPlayer == 1 ? "O" : "X"}'s turn`;
+  renderStatus(winnerVal, currentPlayer) {
+    if (winnerVal == "X") {
+      statusTemp = "Winner: X";
+    } else if (winnerVal == "O") {
+      statusTemp = "Winner: O";
+    } else {
+      statusTemp = `${currentPlayer == 1 ? "O" : "X"}'s turn`;
+    }
+    this.setState({ status: statusTemp });
+    this.winnerValue = 0;
   }
 
   render() {
@@ -215,8 +218,7 @@ export default class App extends React.Component {
           <View style={{ marginTop: "50%" }}></View>
         </View>
         <View>
-          {/* <Text>{this.renderStatus(winnerValue, this.currentPlayer)}</Text> */}
-          <Text>{status}</Text>
+          <Text>{this.state.status}</Text>
         </View>
         <Button title="New Game" onPress={this.restartGameBtn} />
       </View>

@@ -1,14 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { render } from "react-dom";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
-  Button,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { MaterialCommunityIcons as Icon } from "react-native-vector-icons";
 
 let winnerValue = 0;
@@ -107,14 +100,12 @@ export default class App extends React.Component {
     // check for a winner
     const winner = this.checkForWinner();
     if (winner == 1) {
-      Alert.alert(winner + " is winner");
       winnerValue = "X";
 
       Alert.alert("X wins!");
       this.initializeGame();
     }
     if (winner == -1) {
-      Alert.alert(winner + " is winner");
       winnerValue = "O";
 
       Alert.alert("O wins!");
@@ -217,10 +208,12 @@ export default class App extends React.Component {
           </TouchableOpacity>
           <View style={{ marginTop: "50%" }}></View>
         </View>
-        <View>
+        <View style={styles.box}>
           <Text>{this.state.status}</Text>
         </View>
-        <Button title="New Game" onPress={this.restartGameBtn} />
+        <TouchableOpacity onPress={this.restartGameBtn} style={styles.button}>
+          <Text>New Game</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -229,27 +222,51 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f1faee",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginTop: 80,
+    paddingTop: 80,
+  },
+
+  box: {
+    marginBottom: "5%",
+    backgroundColor: "#A8DADC",
+    borderRadius: 10,
+    padding: "2%",
+    paddingRight: "5%",
+    paddingLeft: "5%",
+    borderColor: "#e63946",
+    borderWidth: 0.7,
   },
 
   tile: {
+    backgroundColor: "#F1FAEE",
     borderWidth: 1,
     width: 100,
     height: 100,
+    borderColor: "#e63946",
+  },
+
+  button: {
+    marginBottom: "5%",
+    backgroundColor: "#A8DADC",
+    borderRadius: 10,
+    padding: "2%",
+    paddingRight: "5%",
+    paddingLeft: "5%",
+    borderColor: "#1D3557",
+    borderWidth: 0.7,
   },
 
   x: {
-    color: "blue",
+    color: "#E63946",
     fontSize: 70,
     textAlign: "center",
     marginTop: 10,
   },
 
   o: {
-    color: "red",
+    color: "#1D3557",
     fontSize: 70,
     textAlign: "center",
     marginTop: 10,

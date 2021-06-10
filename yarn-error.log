@@ -1,0 +1,57 @@
+Arguments: 
+  /usr/bin/node /usr/bin/yarn add @material-ui/core/Box
+
+PATH: 
+  /home/mikayelb/.autojump/bin:/home/mikayelb/.autojump/bin:/home/mikayelb/.autojump/bin:/home/mikayelb/.autojump/bin:/home/mikayelb/.local/bin:/home/mikayelb/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  16.1.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@material-ui%2fcore/Box: Request "https://registry.yarnpkg.com/@material-ui%2fcore/Box" returned a 405
+      at Request.params.callback [as _callback] (/usr/lib/node_modules/yarn/lib/cli.js:66997:18)
+      at Request.self.callback (/usr/lib/node_modules/yarn/lib/cli.js:140662:22)
+      at Request.emit (node:events:365:28)
+      at Request.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141634:10)
+      at Request.emit (node:events:365:28)
+      at IncomingMessage.<anonymous> (/usr/lib/node_modules/yarn/lib/cli.js:141556:12)
+      at Object.onceWrapper (node:events:471:28)
+      at IncomingMessage.emit (node:events:377:35)
+      at endReadableNT (node:internal/streams/readable:1312:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "eject": "expo eject"
+    },
+    "dependencies": {
+      "expo": "~41.0.1",
+      "expo-status-bar": "~1.0.4",
+      "react": "16.13.1",
+      "react-dom": "16.13.1",
+      "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+      "react-native-web": "~0.13.12"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.9.0"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
